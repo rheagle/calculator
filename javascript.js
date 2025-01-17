@@ -84,6 +84,34 @@ function removeFromDisplay(str) {
 }
 
 //add keyboard support
+document.addEventListener("keydown", (inEvent) => {
+    const key = inEvent.key; //get the key pressed
+    //handle number keys
+    if (!isNaN(key)) { //check if key is a number
+        addToDisplay(key);
+    }
+    //handle operators
+    else if (["+", "-", "*", "/"].includes(key)) {
+        addToDisplay(key);
+        operator = key; //store operator
+    }
+    //handle decimal 
+    else if (key === ".") {
+        addToDisplay(".");
+    }
+    //handle enter key for =
+    else if (key === "Enter" || key === "=") {
+        equals.click(); //trigger equals button's click event
+    }
+    //handle backspace key for delete
+    else if (key === "Backspace") {
+        deleteButton.click(); //trigger delete button's click event
+    }
+    //handle esc button for clear
+    else if (key === "Escape") {
+        clear.click(); //trigger clear button's click event
+    }
+});
 
 //split displayString to assign values to num1 and num2 variables
 function splitString() {
