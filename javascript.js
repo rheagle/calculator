@@ -13,8 +13,10 @@ buttonsContainer.appendChild(display);
 //create divs for number and operator buttons
 const numbersContainer = document.createElement("div");
 const operatorsContainer = document.createElement("div");
+const otherContainer = document.createElement("div");
 buttonsContainer.appendChild(numbersContainer);
 buttonsContainer.appendChild(operatorsContainer);
+buttonsContainer.appendChild(otherContainer);
 
 //create number buttons & make them functional
 const numberValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -39,7 +41,13 @@ operatorArray.forEach((oper) => {
 //create = button
 const equals = document.createElement("button");
 equals.textContent = "=";
-buttonsContainer.appendChild(equals);
+otherContainer.appendChild(equals);
+
+//create "." button to let users input decimals
+const decimal = document.createElement("button");
+decimal.textContent = ".";
+otherContainer.appendChild(decimal);
+decimal.onclick = () => addToDisplay(".");
 
 //create clear button and make it functional
 const clear = document.createElement("button");
@@ -49,6 +57,15 @@ clear.addEventListener("click", () => {
     display.textContent = "";
     displayString = "";
 });
+
+//create delete button
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "delete";
+buttonsContainer.appendChild(deleteButton);
+deleteButton.onclick = () => {
+    removeFromDisplay(displayString);
+    updateDisplay();
+}
 
 //functions for display
 let displayString = "";
@@ -61,6 +78,12 @@ function addToDisplay(character) {
 function updateDisplay() {
     display.textContent = displayString;
 }
+
+function removeFromDisplay(str) {
+    displayString = str.slice(0, -1);
+}
+
+//add keyboard support
 
 //split displayString to assign values to num1 and num2 variables
 function splitString() {
