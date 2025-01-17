@@ -124,7 +124,21 @@ const operate = function(c, a, b) {
 }
 
 //run operation
-equals.onclick = () => {
+/*equals.onclick = () => {
     splitString();
     operate(operator, num1, num2);
-}
+}*/
+
+// Modify the equals button's onclick to evaluate the full displayString
+equals.onclick = () => {
+    try {
+        // Safely evaluate the displayString
+        const result = Function(`"use strict"; return (${displayString})`)();
+        displayResult(result);
+        displayString = result.toString(); // Allow chaining operations
+    } catch (error) {
+        displayResult("Error"); // Handle invalid input
+        displayString = ""; // Clear invalid expression
+    }
+};
+
